@@ -26,7 +26,7 @@ server.get('/api/memos', (req, res) => {
 });
 
 server.get('/api/memos/:id', (req, res) => {
-    // with description
+
     setTimeout(() => {
         if (Math.random() > 0.2) {
             const id = parseInt(req.params.id, 10);
@@ -44,7 +44,7 @@ server.get('/api/memos/:id', (req, res) => {
             }
 
             memos = memos.filter(o => o.id !== id); // truthy -> !0, !'', !false, !undefined, !null
-            res.statusCode = 204; // No content
+            res.statusCode = 204; 
             res.send();
         } else {
             res.statusCode = 500;
