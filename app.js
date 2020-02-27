@@ -109,4 +109,4 @@ server.delete('/api/memos/:id', (req, res) => {
 
 });
 
-server.listen(9999);
+server.listen(process.env.PORT || 9999);
