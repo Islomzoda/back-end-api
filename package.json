@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm i",
     "start": "nodemon app.js"
   },
   "keywords": [],
