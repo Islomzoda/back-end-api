@@ -8,7 +8,7 @@ server.use(express.json());
 let nextMemoId = 1;
 let memos = [
     { id: nextMemoId++, type: 'car', price: '50', description:'BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
-    { id: nextMemoId++, type: 'car', price: '50', description:'BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
+    { id: nextMemoId++, type: 'car', price: '50', description:'1BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
     { id: nextMemoId++, type: 'car', price: '50', description:'BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
     { id: nextMemoId++, type: 'car', price: '50', description:'BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
     { id: nextMemoId++, type: 'car', price: '50', description:'BMW AG — немецкий производитель автомобилей, мотоциклов, двигателей, а также велосипедов. Председателем компании на сегодняшний день является Норберт Райтхофер, а главным дизайнером — Карим Хабиб. Девиз компании — «Freude am Fahren»,. Для англоязычных стран был придуман также «The Ultimate Driving Machine». ' },
@@ -28,29 +28,23 @@ server.get('/api/memos', (req, res) => {
 server.get('/api/memos/:id', (req, res) => {
 
     setTimeout(() => {
-        if (Math.random() > 0.2) {
             const id = parseInt(req.params.id, 10);
-
+            console.log(memos);
             if (isNaN(id)) {
                 res.statusCode = 400;
-                res.send();
+                res.send(memos);
                 return;
             }
 
-            const memoExpended = memos.find(o => o.id === id);
-            if (memoExpended === undefined) {
-                res.statusCode = 404;
-                res.send();
+            const existent = memos.find(o => o.id === id);
+            if (existent === undefined) {
+                res.status(404).send();
+                return;
             }
 
-            memos = memos.filter(o => o.id !== id); // truthy -> !0, !'', !false, !undefined, !null
-            res.statusCode = 204; 
-            res.send();
-        } else {
-            res.statusCode = 500;
-            res.send();
-        }
-    }, 1000);
+            const description = existent.description;
+            res.send(description);
+    }, 5000);
 });
 
 server.post('/api/memos', (req, res) => {
@@ -64,6 +58,7 @@ server.post('/api/memos', (req, res) => {
                 return;
             }
 //hello world
+
             if (memos.find(o => memo.id === o.id) === undefined) {
                 res.statusCode = 404;
                 res.send();
@@ -77,7 +72,7 @@ server.post('/api/memos', (req, res) => {
             res.statusCode = 500;
             res.send();
         }
-    }, 5000);
+    }, 1000);
 });
 
 server.delete('/api/memos/:id', (req, res) => {
@@ -109,4 +104,5 @@ server.delete('/api/memos/:id', (req, res) => {
 
 });
 
-server.listen(process.env.PORT || 9999);
+
+server.listen(9999)
